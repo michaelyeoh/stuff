@@ -1,0 +1,18 @@
+2 days range switch
+If(C>Ref(Max(H,Ref(H,-1)),-1),Min(L,Ref(L,-1)),
+If(C<Ref(Min(L,Ref(L,-1)),-1),Max(H,Ref(H,-1)),PREV))
+
+Highest High of Today vs Yesterday, Lowest Low of Today vs Yesterday
+
+If today's close is < (short?)
+Min of (Low of yesterday, Low of day before yesterday) &  Max of (High of yesterday, High of day before yesterday)?
+
+http://forum.metastock.com/posts/t150743-PREV-Function
+
+PREV is simply the previous bars result of this current variable. The result calculated on the previous bar is used as an input for calculating the current bar's value. The Ref() function can only work with a variable or data array that has already been defined but PREV does not require the variable that it's used in to have been defined at some earlier point in the formula. PREV can be seeded with a starting value or it will otherwise assume zero as the starting value (i.e when processing the first data bar there cannot be an actual PREVious value and zero will be assumed in that case). A couple of weeks ago I gave an example of how a variable can be seeded on bar one thus providing a value other than zero for PREV when the next bar's result is calculated - see http://forum.equis.com/forums/thread/31138.aspx.
+
+PREV comes into it's own for decision-making such as when a trade exit is dependant on the trade entry price. Because of it's performance issues the general rule is to never use PREV unless it's absolutely necessary.
+
+3 days range switch
+If(C>Ref(Max(H,Max(Ref(H,-1),Ref(H,-2))),-1),Min(L,Min(Ref(L,-1),Ref(L,-2))),
+If(C<Ref(Min(L,Min(Ref(L,-1),Ref(L,-2))),-1),Max(H,Max(Ref(H,-1),Ref(H,-2))),PREV)))
